@@ -12,7 +12,7 @@
 #include <thread>         // std::thread, std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
 
-#include "client.h"         // std::chrono::seconds
+#include "relay.h"         // std::chrono::seconds
 
 
 std::string msg;
@@ -32,19 +32,19 @@ void readData()
   	}
 }
 
-void writeData(Client* client)
+void writeData(Relay* relay)
 {
 	while (true) 
 	{
     		//std::lock_guard<std::mutex> lock{msg_mutex};
     		if (msg.length() > 0) 
 		{
-			//send to websocketd which will then forward to client web browser
+			//send to websocketd which will then forward to relay web browser
 			//this needs to be done after processing by server....
       			std::cout << msg << std::endl;
 
 			//send to server for processing
-			client->sendToServer(msg);
+			relay->sendToServer(msg);
 
 			//clear the msg for next time
       			msg.clear();
@@ -54,13 +54,12 @@ void writeData(Client* client)
 
 int main(void)
 {
-	Client client;
+	Relay relay;
 
 	std::thread reader (readData);     
-	std::thread writer (writeData, &client);     
+	std::thread writer (writeData, &relay);     
 	reader.join();
 	writer.join();
 
-	//client->sendToServer();
   	return 0;
 }

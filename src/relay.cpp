@@ -12,14 +12,14 @@
 #include <thread>         // std::thread, std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
 
-#include "client.h"
+#include "relay.h"
 
-Client::Client()
+Relay::Relay()
 {
 
 }
 
-void Client::sendToServer(std::string s)
+void Relay::sendToServer(std::string s)
 {
 		char cstr[s.size() + 1];
 		strcpy(this->buffer, s.c_str());	// or pass &s[0]

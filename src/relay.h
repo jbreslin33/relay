@@ -1,5 +1,5 @@
-#ifndef CLIENT_H
-#define CLIENT_H
+#ifndef RELAY_H
+#define RELAY_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -16,7 +16,7 @@
 #include <chrono>         // std::chrono::seconds
 
 
-class Client
+class Relay
 {
 	private:
   	
@@ -28,9 +28,8 @@ class Client
 	
 	char buffer[200];
 
-	Client();
+	Relay();
 
-	//void sendToServer(std::string m)
 	void sendToServer(std::string s);
 
 };
