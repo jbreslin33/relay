@@ -16,7 +16,7 @@
 
 
 std::string msg;
-
+/*
 void readData()
 {
 	while (true) 
@@ -31,7 +31,7 @@ void readData()
     		msg = sin;
   	}
 }
-
+*/
 void writeData(Relay* relay)
 {
 	while (true) 
