@@ -56,9 +56,9 @@ int main(void)
 {
 	Relay relay;
 
-	std::thread reader (readData);     
+	//std::thread reader (readData);     
 	std::thread writer (writeData, &relay);     
-	reader.join();
+	//reader.join();
 	writer.join();
 
   	return 0;

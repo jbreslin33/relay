@@ -1,8 +1,10 @@
 #include "relay.h"
 
+#include "reader.h"
+
 Relay::Relay()
 {
-
+	Reader reader;
 }
 
 void Relay::sendToServer(std::string s)
