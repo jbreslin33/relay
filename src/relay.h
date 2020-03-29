@@ -25,6 +25,8 @@ class Relay
   	int bytes_sent;
 
 
+
+
 	public:
 	
 	char buffer[200];
@@ -32,6 +34,8 @@ class Relay
 	Relay();
 
 	void sendToServer(std::string s);
+        
+	std::string mMessage;
 
 };
 

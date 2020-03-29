@@ -4,18 +4,21 @@
 #include <iostream>
 #include <thread>
 
+#include "relay.h"
+
 class Reader 
 {
 
 	private:
 
-		std::string msg;
+		Relay* mRelay;
 
 	public:
 	
 		Reader();
 
 		void readData();
+		void setRelay(Relay* relay);
 };
 
 

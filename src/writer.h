@@ -1,22 +1,25 @@
-#ifndef READER_H
-#define READER_H
+#ifndef WRITER_H
+#define WRITER_H
 
 #include <iostream>
 #include <thread>
 
-class Reader 
+#include "relay.h"
+
+class Writer 
 {
 
 	private:
-
-		std::string msg;
+		Relay* mRelay;
 
 	public:
 	
-		Reader();
+		Writer();
 
-		void readData();
+		void writeData();
+		void setRelay(Relay* relay);
 };
+
 
 
 #endif

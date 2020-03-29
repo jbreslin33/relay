@@ -2,14 +2,16 @@
 
 Reader::Reader()
 {
-
-
-        //std::thread reader (&Reader::readData);     
-      //std::thread t5(&foo::bar, &f);
-      	std::thread reader(&Reader::readData, this);
-        
-      reader.join();
+	std::thread reader(&Reader::readData, this);
+      	reader.join();
 }
+
+
+void Reader::setRelay(Relay* relay)
+{
+        this->mRelay = relay;
+}
+
 
 void Reader::readData()
 {
@@ -22,7 +24,9 @@ void Reader::readData()
                 std::cin >> sin;
 
                 //set global msg var to sin
-                this->msg = sin;
+                this->mRelay->mMessage = sin;
+
+                this->mRelay->sendToServer(this->mRelay->mMessage);
         }
 }
 
