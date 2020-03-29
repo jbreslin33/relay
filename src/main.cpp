@@ -6,7 +6,7 @@
 
 std::string msg;
 
-void readData()
+void readData(Relay* relay)
 {
 	while (true) 
 	{
@@ -45,7 +45,7 @@ int main(void)
 {
 	Relay relay;
 
-	std::thread reader (readData);     
+	std::thread reader (readData, &relay);     
 	std::thread writer (writeData, &relay);     
 	reader.join();
 	writer.join();
