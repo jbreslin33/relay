@@ -37,12 +37,21 @@ void writeData(Relay* relay)
   	}
 }
 
+void readSocketData(Relay* relay)
+{
+	while (true) 
+	{
+
+	}
+}
+
 int main(void)
 {
 	Relay relay;
 
-	std::thread reader (readData, &relay);     
-	std::thread writer (writeData, &relay);     
+	std::thread reader       (readData, &relay);     
+	std::thread writer       (writeData, &relay);     
+	std::thread socketReader (readSocketData, &relay);     
 	reader.join();
 	writer.join();
 

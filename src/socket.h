@@ -12,16 +12,16 @@
 #include <arpa/inet.h>
 
 
-class Network;
+class Relay;
 
 class Socket
 {
 	public:
-		Socket(Network* network, int port);
+		Socket(Relay* network, int port);
 		void readData();
 
 	private:
-		Network* mNetwork;
+		Relay* mRelay;
 
 		//Berkeley Sockets
         	int mSocketId;

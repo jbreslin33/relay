@@ -1,10 +1,10 @@
 #include "socket.h"
-#include "network.h"
-#include "server.h"
+#include "relay.h"
 
-Socket::Socket(Network* network, int port)
+
+Socket::Socket(Relay* relay, int port)
 {
-	mNetwork = network;
+	mRelay = relay;
 
         mPort = port;
 
@@ -37,7 +37,7 @@ void Socket::readData()
         printf("recsize: %d\n ", (int)mReceivedMessageSize);
         printf("datagram: %.*s\n", (int)mReceivedMessageSize, mBuffer);
 
-        mNetwork->mServer->processData(mBuffer, mRemoteSocketAddressIn);
+        //mNetwork->mServer->processData(mBuffer, mRemoteSocketAddressIn);
         sleep(1);
 }
 
