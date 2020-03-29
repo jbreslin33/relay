@@ -1,14 +1,8 @@
 #include "relay.h"
-#include "reader.h"
-#include "writer.h"
 
 Relay::Relay()
 {
-	Reader reader;
-	Writer writer;
 
-	reader.setRelay(this);
-	writer.setRelay(this);
 }
 
 void Relay::sendToServer(std::string s)
