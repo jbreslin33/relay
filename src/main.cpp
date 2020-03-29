@@ -3,9 +3,6 @@
 
 #include "relay.h"       
 
-
-//std::string msg;
-
 void readData(Relay* relay)
 {
 	while (true) 
