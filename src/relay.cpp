@@ -1,9 +1,15 @@
 #include "relay.h"
 #include "socket.h"
 
+#include <fstream>
+
 Relay::Relay()
 {
+      	printf("Constructer of relay");
 	mListenSocket = new Socket(this,8765);
+
+	log();
+
 
 }
 
@@ -37,6 +43,17 @@ void Relay::sendToServer(std::string s)
  
 	close(sock); 
 
+
+}
+
+void Relay::log()
+{
+  std::ofstream ofs;
+  ofs.open ("log.txt", std::ofstream::out | std::ofstream::app);
+
+  ofs << " more lorem ipsum";
+
+  ofs.close();
 
 }
 
