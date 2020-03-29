@@ -28,7 +28,7 @@ class Relay
 	public:
 	
 	Relay();
-	void log();
+	void log(std::string s);
 	void sendToServer(std::string s);
 	
 	char buffer[200];

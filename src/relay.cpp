@@ -5,10 +5,16 @@
 
 Relay::Relay()
 {
-      	printf("Constructer of relay");
+	/*
+	 if( remove( "relay.log" ) != 0 )
+	 {
+    		perror( "Error deleting file" );
+	 }
+	 */
+
 	mListenSocket = new Socket(this,8765);
 
-	log();
+	log("con called after all");
 
 
 }
@@ -46,12 +52,13 @@ void Relay::sendToServer(std::string s)
 
 }
 
-void Relay::log()
+void Relay::log(std::string s)
 {
   std::ofstream ofs;
-  ofs.open ("log.txt", std::ofstream::out | std::ofstream::app);
+  ofs.open ("relay.log", std::ofstream::out | std::ofstream::app);
 
-  ofs << " more lorem ipsum";
+  //ofs << " more lorem ipsum";
+  ofs << s;
 
   ofs.close();
 
