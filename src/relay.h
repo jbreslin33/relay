@@ -15,6 +15,7 @@
 #include <thread>         // std::thread, std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
 
+class Socket;
 
 class Relay
 {
@@ -26,13 +27,13 @@ class Relay
 
 	public:
 	
-	char buffer[200];
-
 	Relay();
-
 	void sendToServer(std::string s);
-
+	
+	char buffer[200];
 	std::string mMessage;
+
+	Socket* mListenSocket;
 
 };
 

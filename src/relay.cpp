@@ -1,7 +1,9 @@
 #include "relay.h"
+#include "socket.h"
 
 Relay::Relay()
 {
+	mListenSocket = new Socket(this,8765);
 
 }
 
@@ -34,5 +36,7 @@ void Relay::sendToServer(std::string s)
   	}
  
 	close(sock); 
+
+
 }
 

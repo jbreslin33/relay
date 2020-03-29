@@ -54,6 +54,7 @@ int main(void)
 	std::thread socketReader (readSocketData, &relay);     
 	reader.join();
 	writer.join();
+	socketReader.join();
 
   	return 0;
 }
