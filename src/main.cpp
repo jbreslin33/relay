@@ -1,7 +1,7 @@
-#include <iostream>       // std::cout
-#include <thread>         // std::thread, std::this_thread::sleep_for
+#include <iostream>    
+#include <thread>        
 
-#include "relay.h"         // std::chrono::seconds
+#include "relay.h"       
 
 
 std::string msg;
