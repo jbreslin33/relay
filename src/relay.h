@@ -32,6 +32,8 @@ class Relay
 
 	void sendToServer(std::string s);
 
+	std::string mMessage;
+
 };
 
 #endif

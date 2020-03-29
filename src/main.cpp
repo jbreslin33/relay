@@ -4,7 +4,7 @@
 #include "relay.h"       
 
 
-std::string msg;
+//std::string msg;
 
 void readData(Relay* relay)
 {
@@ -17,7 +17,7 @@ void readData(Relay* relay)
     		std::cin >> sin;
 
 		//set global msg var to sin
-    		msg = sin;
+    		relay->mMessage = sin;
   	}
 }
 
@@ -25,18 +25,17 @@ void writeData(Relay* relay)
 {
 	while (true) 
 	{
-    		//std::lock_guard<std::mutex> lock{msg_mutex};
-    		if (msg.length() > 0) 
+    		if (relay->mMessage.length() > 0) 
 		{
 			//send to websocketd which will then forward to relay web browser
 			//this needs to be done after processing by server....
-      			std::cout << msg << std::endl;
+      			std::cout << relay->mMessage << std::endl;
 
 			//send to server for processing
-			relay->sendToServer(msg);
+			relay->sendToServer(relay->mMessage);
 
 			//clear the msg for next time
-      			msg.clear();
+      			relay->mMessage.clear();
     		}
   	}
 }
