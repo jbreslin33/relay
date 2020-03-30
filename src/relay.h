@@ -15,15 +15,11 @@
 #include <thread>         // std::thread, std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
 
-class Socket;
-
 class Relay
 {
 	private:
   	
-	int sock;
-  	struct sockaddr_in sa;
-  	int bytes_sent;
+  	//int bytes_sent;
 
 	public:
 	
@@ -32,10 +28,20 @@ class Relay
 	void sendToServer(std::string s);
 	void readData();
 	
-	char buffer[200];
-	std::string mMessage;
 
-	Socket* mListenSocket;
+	//Berkeley Sockets all
+	int sock;
+        struct sockaddr_in sa;
+        char buffer[1024];
+        ssize_t recsize;
+        socklen_t fromlen;
+	
+	//Berkeley Sockets send
+	int bytes_sent;
+	
+
+	std::string mMessage;
+	int mListenPort;
 
 };
 

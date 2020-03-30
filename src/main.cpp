@@ -2,7 +2,6 @@
 #include <thread>        
 
 #include "relay.h"       
-#include "socket.h"       
 
 void readData(Relay* relay)
 {

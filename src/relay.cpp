@@ -1,11 +1,39 @@
 #include "relay.h"
-#include "socket.h"
 
 #include <fstream>
 
 Relay::Relay()
 {
 	//mListenSocket = new Socket(this,0);
+	mListenPort = 0;
+
+	//setup listen socket server
+        //Berkeley Sockets
+
+        memset(&sa, 0, sizeof sa);
+        sa.sin_family = AF_INET;
+        sa.sin_addr.s_addr = htonl(INADDR_ANY);
+        sa.sin_port = htons(0);
+        fromlen = sizeof sa;
+
+        sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
+
+        if (bind(sock, (struct sockaddr *)&sa, sizeof sa) == -1)
+        {
+                perror("error bind failed");
+                close(sock);
+                exit(EXIT_FAILURE);
+        }
+
+        if (getsockname(sock, (struct sockaddr *)&sa, &fromlen) == -1)
+        {
+                log("getsockname");
+        }
+        else
+        {
+                log(std::to_string(ntohs(sa.sin_port)));
+        }
+
 }
 
 void Relay::sendToServer(std::string s)
@@ -44,6 +72,7 @@ void Relay::sendToServer(std::string s)
 void Relay::readData()
 {
 	//Berkeley Sockets
+	/*
 	int sock;
   	struct sockaddr_in sa; 
   	char buffer[1024];
@@ -73,7 +102,7 @@ void Relay::readData()
         {
                 log(std::to_string(ntohs(sa.sin_port)));
         }
-
+*/
         recsize = recvfrom(sock, (void*)buffer, sizeof buffer, 0, (struct sockaddr*)&sa, &fromlen);
         if (recsize < 0)
         {
