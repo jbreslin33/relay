@@ -17,14 +17,6 @@ Socket::Socket(Relay* relay, int port)
 
         mSocketId = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
-	if (getsockname(mSocketId, (struct sockaddr *)&mSocketAddressIn, &mFromLength) == -1)
-	{
-    		mRelay->log("getsockname");
-	}
-	else
-	{
-    		mRelay->log(std::to_string(ntohs(mSocketAddressIn.sin_port)));
-	}
 
 	//int port = getsockname(mSocketAddressIn,mFromLength);
 	//mRelay->log(std::to_strint(port));
@@ -35,6 +27,15 @@ Socket::Socket(Relay* relay, int port)
                 close(mSocketId);
                 exit(EXIT_FAILURE);
         }
+	
+	if (getsockname(mSocketId, (struct sockaddr *)&mSocketAddressIn, &mFromLength) == -1)
+	{
+    		mRelay->log("getsockname");
+	}
+	else
+	{
+    		mRelay->log(std::to_string(ntohs(mSocketAddressIn.sin_port)));
+	}
 
 }
 
