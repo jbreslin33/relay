@@ -5,7 +5,7 @@
 
 Relay::Relay()
 {
-	mListenSocket = new Socket(this,8765);
+	mListenSocket = new Socket(this,0);
 }
 
 void Relay::sendToServer(std::string s)
