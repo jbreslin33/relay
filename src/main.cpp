@@ -2,6 +2,7 @@
 #include <thread>        
 
 #include "relay.h"       
+#include "socket.h"       
 
 void readData(Relay* relay)
 {
@@ -41,7 +42,8 @@ void readSocketData(Relay* relay)
 {
 	while (true) 
 	{
-
+		relay->mListenSocket->readData();
+		relay->log("read Data");
 	}
 }
 

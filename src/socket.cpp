@@ -33,12 +33,17 @@ void Socket::readData()
                 fprintf(stderr, "%s\n", strerror(errno));
                 exit(EXIT_FAILURE);
         }
+	else
+	{
+		mRelay->log("received message");
+	}
+	mRelay->log("calling readData()");
 
-        printf("recsize: %d\n ", (int)mReceivedMessageSize);
-        printf("datagram: %.*s\n", (int)mReceivedMessageSize, mBuffer);
+        //printf("recsize: %d\n ", (int)mReceivedMessageSize);
+        //printf("datagram: %.*s\n", (int)mReceivedMessageSize, mBuffer);
 
         //mNetwork->mServer->processData(mBuffer, mRemoteSocketAddressIn);
-        sleep(1);
+        //sleep(1);
 }
 
 

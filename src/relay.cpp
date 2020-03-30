@@ -5,18 +5,7 @@
 
 Relay::Relay()
 {
-	/*
-	 if( remove( "relay.log" ) != 0 )
-	 {
-    		perror( "Error deleting file" );
-	 }
-	 */
-
 	mListenSocket = new Socket(this,8765);
-
-	log("con called after all");
-
-
 }
 
 void Relay::sendToServer(std::string s)
@@ -56,11 +45,7 @@ void Relay::log(std::string s)
 {
   std::ofstream ofs;
   ofs.open ("relay.log", std::ofstream::out | std::ofstream::app);
-
-  //ofs << " more lorem ipsum";
-  ofs << s;
-
+  ofs << s << std::endl;
   ofs.close();
-
 }
 
