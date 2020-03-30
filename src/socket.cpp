@@ -30,14 +30,15 @@ void Socket::readData()
         mReceivedMessageSize = recvfrom(mSocketId, (void*)mBuffer, sizeof mBuffer, 0, (struct sockaddr*)&mRemoteSocketAddressIn, &mFromLength);
         if (mReceivedMessageSize < 0)
         {
-                fprintf(stderr, "%s\n", strerror(errno));
+                //fprintf(stderr, "%s\n", strerror(errno));
+		mRelay->log("message failed.");
                 exit(EXIT_FAILURE);
         }
 	else
 	{
 		mRelay->log("received message");
 	}
-	mRelay->log("calling readData()");
+	//mRelay->log("calling readData()");
 
         //printf("recsize: %d\n ", (int)mReceivedMessageSize);
         //printf("datagram: %.*s\n", (int)mReceivedMessageSize, mBuffer);
