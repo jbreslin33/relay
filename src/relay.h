@@ -30,6 +30,7 @@ class Relay
 	Relay();
 	void log(std::string s);
 	void sendToServer(std::string s);
+	void readData();
 	
 	char buffer[200];
 	std::string mMessage;

@@ -42,7 +42,8 @@ void readSocketData(Relay* relay)
 {
 	while (true) 
 	{
-		relay->mListenSocket->readData();
+		//relay->mListenSocket->readData();
+		relay->readData();
 		relay->log("read Data");
 	}
 }
