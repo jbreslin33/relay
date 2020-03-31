@@ -9,6 +9,7 @@ Relay::Relay()
 
 	//setup listen socket server
         //Berkeley Sockets
+	log("Constructor Relay");
 
         memset(&sa, 0, sizeof sa);
         sa.sin_family = AF_INET;
