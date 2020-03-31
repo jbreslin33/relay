@@ -4,13 +4,6 @@
 
 Relay::Relay()
 {
-	//mListenSocket = new Socket(this,0);
-	mListenPort = 0;
-
-	//setup listen socket server
-        //Berkeley Sockets
-	log("Constructor Relay");
-
         memset(&sa, 0, sizeof sa);
         sa.sin_family = AF_INET;
         sa.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -32,7 +25,10 @@ Relay::Relay()
         }
         else
         {
-                log(std::to_string(ntohs(sa.sin_port)));
+		mListenPort = std::to_string(ntohs(sa.sin_port)); 
+		std::string message = "Listening on Port: ";
+		message.append(mListenPort);
+                log(message);
         }
 
 }
