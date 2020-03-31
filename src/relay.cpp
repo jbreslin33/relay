@@ -25,7 +25,13 @@ Relay::Relay()
         }
         else
         {
+		//print port to console
 		mListenPort = std::to_string(ntohs(sa.sin_port)); 
+		while (mListenPort.size() < 5)
+		{
+			mListenPort.insert(0,"0");
+		}
+			
 		std::string message = "Listening on Port: ";
 		message.append(mListenPort);
                 log(message);

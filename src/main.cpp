@@ -13,6 +13,14 @@ void readData(Relay* relay)
 		//set any data coming in to var sin
     		std::cin >> sin;
 
+		//check to see if this is a 2 first connection
+	        if (sin.compare(0,1,"2") == 0)
+		{
+			//first connection so append listen port
+			sin.append(relay->mListenPort);		
+		}
+
+
 		//set global msg var to sin
     		relay->mMessage = sin;
   	}
