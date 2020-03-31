@@ -41,7 +41,7 @@ class Relay
 	
 
 	std::string mMessage;
-	int mListenPort;
+	u_short mListenPort;
 
 };
 
