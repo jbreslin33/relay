@@ -3,7 +3,7 @@
 
 #include "relay.h"       
 
-void readData(Relay* relay)
+void readWebSocketData(Relay* relay)
 {
 	while (true) 
 	{
@@ -28,7 +28,7 @@ void readData(Relay* relay)
   	}
 }
 
-void writeData(Relay* relay)
+void writeSocketData(Relay* relay)
 {
 	while (true) 
 	{
@@ -120,26 +120,20 @@ void readSocketData(Relay* relay)
     		sleep(1);
     		printf("datagram: %.*s\n", (int)recsize, buffer);
   	}
-  /*
-	while (true) 
-	{
-		//relay->mListenSocket->readData();
-		//relay->readData();
-		//relay->log("read Data");
-	}
-	*/
 }
 
 int main(void)
 {
 	Relay relay;
 
-	std::thread reader       (readData, &relay);     
-	std::thread writer       (writeData, &relay);     
-	std::thread socketReader (readSocketData, &relay);     
-	reader.join();
-	writer.join();
-	socketReader.join();
+	std::thread tReadWebSocketData (readWebSocketData, &relay);     
+
+	std::thread tReadSocketData    (readSocketData, &relay);     
+	std::thread tWriteSocketData   (writeSocketData, &relay);     
+	
+	tReadWebSocketData.join();
+	tReadSocketData.join();
+	tWriteSocketData.join();
 
   	return 0;
 }
