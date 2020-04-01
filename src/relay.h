@@ -25,6 +25,7 @@ class Relay
 	void log(std::string s);
 	std::string mMessage;
 
+	int mListenPort;
 };
 
 #endif

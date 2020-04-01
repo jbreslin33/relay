@@ -14,14 +14,17 @@ void readWebSocketData(Relay* relay)
     		std::cin >> sin;
 
 		//check to see if this is a 2 first connection
-		/*
 	        if (sin.compare(0,1,"2") == 0)
 		{
 			//first connection so append listen port
-			sin.append(relay->mListenPort);		
-		}
-		*/
+			std::string port = std::to_string(relay->mListenPort); 
+			while (port.size() < 5)
+			{
+				port.insert(0,"0");
+			}
 
+			sin.append(port);		
+		}
 
 		//set global msg var to sin
     		relay->mMessage = sin;
@@ -96,7 +99,8 @@ void readSocketData(Relay* relay)
   	memset(&sa, 0, sizeof sa);
   	sa.sin_family = AF_INET;
   	sa.sin_addr.s_addr = htonl(INADDR_ANY);
-  	sa.sin_port = htons(8765);
+	relay->mListenPort = 8765;
+  	sa.sin_port = htons(relay->mListenPort);
   	fromlen = sizeof sa;
 
   	sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
