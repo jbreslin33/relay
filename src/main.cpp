@@ -40,7 +40,7 @@ void writeData(Relay* relay)
   			int bytes_sent;
   			char buffer[200];
  
-  			strcpy(buffer, "hello world!");
+  			strcpy(buffer, "hello to server from client!");
  
   			/* create an Internet, datagram, socket using UDP */
   			sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
