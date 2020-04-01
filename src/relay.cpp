@@ -4,41 +4,9 @@
 
 Relay::Relay()
 {
-        memset(&sa, 0, sizeof sa);
-        sa.sin_family = AF_INET;
-        sa.sin_addr.s_addr = htonl(INADDR_ANY);
-        sa.sin_port = htons(0);
-        fromlen = sizeof sa;
-
-        sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
-
-        if (bind(sock, (struct sockaddr *)&sa, sizeof sa) == -1)
-        {
-                perror("error bind failed");
-                close(sock);
-                exit(EXIT_FAILURE);
-        }
-
-        if (getsockname(sock, (struct sockaddr *)&sa, &fromlen) == -1)
-        {
-                log("error on getsockname");
-        }
-        else
-        {
-		//print port to console
-		mListenPort = std::to_string(ntohs(sa.sin_port)); 
-		while (mListenPort.size() < 5)
-		{
-			mListenPort.insert(0,"0");
-		}
-			
-		std::string message = "Listening on Port: ";
-		message.append(mListenPort);
-                log(message);
-        }
 
 }
-
+/*
 void Relay::sendToServer(std::string s)
 {
 	char cstr[s.size() + 1];
@@ -84,7 +52,7 @@ void Relay::readData()
                 log("received message");
         }
 }
-
+*/
 void Relay::log(std::string s)
 {
 	std::ofstream ofs;

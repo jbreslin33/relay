@@ -19,29 +19,11 @@ class Relay
 {
 	private:
   	
-  	//int bytes_sent;
-
 	public:
 	
 	Relay();
 	void log(std::string s);
-	void sendToServer(std::string s);
-	void readData();
-	
-
-	//Berkeley Sockets all
-	int sock;
-        struct sockaddr_in sa;
-        char buffer[1024];
-        ssize_t recsize;
-        socklen_t fromlen;
-	
-	//Berkeley Sockets send
-	int bytes_sent;
-	
-
 	std::string mMessage;
-	std::string mListenPort;
 
 };
 
