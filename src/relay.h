@@ -23,9 +23,12 @@ class Relay
 	
 	Relay();
 	void log(std::string s);
-	std::string mMessage;
+
+	std::string mWebSocketMessage;
+	std::string mSocketMessage;
 
 	int mListenPort;
+	int mId;
 };
 
 #endif

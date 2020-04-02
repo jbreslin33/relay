@@ -27,7 +27,7 @@ void readWebSocketData(Relay* relay)
 		}
 
 		//set global msg var to sin
-    		relay->mMessage = sin;
+    		relay->mWebSocketMessage = sin;
   	}
 }
 
@@ -35,7 +35,7 @@ void writeSocketData(Relay* relay)
 {
 	while (true) 
 	{
-    		if (relay->mMessage.length() > 0) 
+    		if (relay->mWebSocketMessage.length() > 0) 
 		{
 			//berkeley client socket
   			int sock;
@@ -43,7 +43,7 @@ void writeSocketData(Relay* relay)
   			int bytes_sent;
   			char buffer[200];
  
-  			strcpy(buffer, relay->mMessage.c_str());
+  			strcpy(buffer, relay->mWebSocketMessage.c_str());
  
   			/* create an Internet, datagram, socket using UDP */
   			sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -84,7 +84,7 @@ void writeSocketData(Relay* relay)
 			//relay->sendToServer(relay->mMessage);
 
 			//clear the msg for next time
-      			relay->mMessage.clear();
+      			relay->mWebSocketMessage.clear();
     		}
   	}
 }
@@ -127,15 +127,53 @@ void readSocketData(Relay* relay)
   	for (;;) 
 	{
     		recsize = recvfrom(sock, (void*)buffer, sizeof buffer, 0, (struct sockaddr*)&sa, &fromlen);
+               	if (recsize > 0)
+                {
+                        buffer[recsize] = 0;
+                        if (buffer[0] == 49)
+                        {
+                                relay->log("MOVE\n");
+                        }
+                        if (buffer[0] == 50)
+                        {
+                                relay->log("NEW CLIENT\n");
+                                std::string id;
+                                for (int i = 1; i < 6; i++)
+                                {
+                                	id.push_back(buffer[i]);
+                                }
+                                //relay->mPort = stoi(port);
+				relay->mId = stoi(id);
+
+                                //lets create a client
+                                //Client* client = new Client(relay->mServer->getNextClientId(),portInt);
+                                //relay->mServer->mClientVector.push_back(client);
+
+                                //lets send message back to client and clients later....
+                                //std::string m = "2"; //new client
+
+                                //std::string id = std::to_string(client->mId);
+                                //m.append(relay->mServer->mUtility->padZerosLeft(5,id)); //client id
+
+				//after processing above this needs to be sent to web via cout actually before when its a move to increase speed
+                                relay->mSocketMessage = buffer;
+				//send to web browser
+      				std::cout << relay->mSocketMessage << std::endl;
+				
+                        }
+                        if (buffer[0] == 51)
+                        {
+                                relay->log("END GAME\n");
+                        }
+                }
+		//old stuff
     		if (recsize < 0) 
 		{
-      			fprintf(stderr, "%s\n", strerror(errno));
+      			//relay->(stderr, "%s\n", strerror(errno));
       			exit(EXIT_FAILURE);
    		}
+
 		relay->log(buffer);
-    		printf("recsize: %d\n ", (int)recsize);
-    		sleep(1);
-    		printf("datagram: %.*s\n", (int)recsize, buffer);
   	}
 }
 
