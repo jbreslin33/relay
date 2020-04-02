@@ -129,41 +129,47 @@ void readSocketData(Relay* relay)
     		recsize = recvfrom(sock, (void*)buffer, sizeof buffer, 0, (struct sockaddr*)&sa, &fromlen);
                	if (recsize > 0)
                 {
+			//end buffer with cap
                         buffer[recsize] = 0;
+
                         if (buffer[0] == 49)
                         {
-                                relay->log("MOVE\n");
+                                //relay->log("MOVE\n");
+                            
+				//after processing above this needs to be sent to web via cout actually before when its a move to increase speed
+                             	relay->mSocketMessage = buffer;
+
+                                //send to web browser
+                                std::cout << relay->mSocketMessage << std::endl;
+
                         }
                         if (buffer[0] == 50)
                         {
-                                relay->log("NEW CLIENT\n");
-                                std::string id;
+                                //relay->log("NEW CLIENT\n");
+                                
+				std::string id;
                                 for (int i = 1; i < 6; i++)
                                 {
                                 	id.push_back(buffer[i]);
                                 }
-                                //relay->mPort = stoi(port);
 				relay->mId = stoi(id);
-
-                                //lets create a client
-                                //Client* client = new Client(relay->mServer->getNextClientId(),portInt);
-                                //relay->mServer->mClientVector.push_back(client);
-
-                                //lets send message back to client and clients later....
-                                //std::string m = "2"; //new client
-
-                                //std::string id = std::to_string(client->mId);
-                                //m.append(relay->mServer->mUtility->padZerosLeft(5,id)); //client id
 
 				//after processing above this needs to be sent to web via cout actually before when its a move to increase speed
                                 relay->mSocketMessage = buffer;
+
 				//send to web browser
       				std::cout << relay->mSocketMessage << std::endl;
 				
                         }
                         if (buffer[0] == 51)
                         {
-                                relay->log("END GAME\n");
+                                //relay->log("END GAME\n");
+				//
+				//after processing above this needs to be sent to web via cout actually before when its a move to increase speed
+                             	relay->mSocketMessage = buffer;
+
+                                //send to web browser
+                                std::cout << relay->mSocketMessage << std::endl;
                         }
                 }
 		//old stuff
@@ -173,7 +179,7 @@ void readSocketData(Relay* relay)
       			exit(EXIT_FAILURE);
    		}
 
-		relay->log(buffer);
+		//relay->log(buffer);
   	}
 }
 
