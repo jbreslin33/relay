@@ -88,6 +88,7 @@ void writeSocketData(Relay* relay)
     		}
   	}
 }
+
 void readSocketData(Relay* relay)
 {
 	int sock;
@@ -99,8 +100,9 @@ void readSocketData(Relay* relay)
   	memset(&sa, 0, sizeof sa);
   	sa.sin_family = AF_INET;
   	sa.sin_addr.s_addr = htonl(INADDR_ANY);
-	relay->mListenPort = 8765;
-  	sa.sin_port = htons(relay->mListenPort);
+	//relay->mListenPort = 8765;
+  	//sa.sin_port = htons(relay->mListenPort);
+        sa.sin_port = htons(0);
   	fromlen = sizeof sa;
 
   	sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -110,6 +112,17 @@ void readSocketData(Relay* relay)
     		close(sock);
     		exit(EXIT_FAILURE);
   	}
+	//relay->mListenPort = 8765;
+	socklen_t len = sizeof(sa);
+	if (getsockname(sock, (struct sockaddr *)&sa, &len) == -1)
+	{
+    		perror("getsockname");
+	}
+	else
+	{
+    		printf("port number %d\n", ntohs(sa.sin_port));
+		relay->mListenPort = ntohs(sa.sin_port);
+	}
 
   	for (;;) 
 	{
