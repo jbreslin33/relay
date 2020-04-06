@@ -14,7 +14,7 @@ void readWebSocketData(Relay* relay)
     		std::cin >> sin;
 
 		//check to see if this is a 2 first connection
-	        if (sin.compare(0,1,"2") == 0)
+	        if (sin.compare(1,1,"2") == 0)
 		{
 			//first connection so append listen port
 			std::string port = std::to_string(relay->mListenPort); 
