@@ -120,7 +120,8 @@ void readSocketData(Relay* relay)
 	}
 	else
 	{
-    		printf("port number %d\n", ntohs(sa.sin_port));
+		//this is where the p is coming from
+    		//printf("port number %d\n", ntohs(sa.sin_port));
 		relay->mListenPort = ntohs(sa.sin_port);
 	}
 
