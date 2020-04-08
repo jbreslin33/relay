@@ -22,25 +22,9 @@ void readWebSocketData(Relay* relay)
 		if (code == 2)
 		{
 			std::string port = std::to_string(relay->mListenPort); 
-			//sin.append(",");
 			sin.append(port);		
 			sin.append(",");
 		}
-
-
-		//check to see if this is a 2 first connection
-		/*
-	        if (sin.compare(1,1,"2") == 0)
-		{
-			//first connection so append listen port
-			std::string port = std::to_string(relay->mListenPort); 
-			sin.append(",");
-			sin.append(port);		
-			sin.append(",");
-		}
-		*/
-		//relay->log(sin);
-
 
 		//set global msg var to sin
     		relay->mWebSocketMessage = sin;
@@ -91,15 +75,6 @@ void writeSocketData(Relay* relay)
  
   			close(sock); /* close the socket */
 
-
-			//send to websocketd which will then forward to relay web browser
-			//this needs to be done after processing by server....
-      			//std::cout << relay->mMessage << std::endl;
-
-			//send to server for processing
-			//relay->sendToServer(relay->mMessage);
-
-			//clear the msg for next time
       			relay->mWebSocketMessage.clear();
     		}
   	}
@@ -116,8 +91,6 @@ void readSocketData(Relay* relay)
   	memset(&sa, 0, sizeof sa);
   	sa.sin_family = AF_INET;
   	sa.sin_addr.s_addr = htonl(INADDR_ANY);
-	//relay->mListenPort = 8765;
-  	//sa.sin_port = htons(relay->mListenPort);
         sa.sin_port = htons(0);
   	fromlen = sizeof sa;
 
@@ -128,16 +101,15 @@ void readSocketData(Relay* relay)
     		close(sock);
     		exit(EXIT_FAILURE);
   	}
-	//relay->mListenPort = 8765;
+	
 	socklen_t len = sizeof(sa);
+
 	if (getsockname(sock, (struct sockaddr *)&sa, &len) == -1)
 	{
     		perror("getsockname");
 	}
 	else
 	{
-		//this is where the p is coming from
-    		//printf("port number %d\n", ntohs(sa.sin_port));
 		relay->mListenPort = ntohs(sa.sin_port);
 	}
 
@@ -149,10 +121,8 @@ void readSocketData(Relay* relay)
 			//end buffer with cap
                         buffer[recsize] = 0;
 
-                        if (buffer[0] == 49)
+                        if (buffer[0] == 49) //MOVE
                         {
-                                //relay->log("MOVE\n");
-                            
 				//after processing above this needs to be sent to web via cout actually before when its a move to increase speed
                              	relay->mSocketMessage = buffer;
 
@@ -160,10 +130,8 @@ void readSocketData(Relay* relay)
                                 std::cout << relay->mSocketMessage << std::endl;
 
                         }
-                        if (buffer[0] == 50)
+                        if (buffer[0] == 50) //NEW CLIENT
                         {
-                                //relay->log("NEW CLIENT\n");
-                                
 				std::string id;
                                 for (int i = 1; i < 6; i++)
                                 {
@@ -180,8 +148,6 @@ void readSocketData(Relay* relay)
                         }
                         if (buffer[0] == 51)
                         {
-                                //relay->log("END GAME\n");
-				//
 				//after processing above this needs to be sent to web via cout actually before when its a move to increase speed
                              	relay->mSocketMessage = buffer;
 
