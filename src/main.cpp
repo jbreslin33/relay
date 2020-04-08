@@ -39,7 +39,7 @@ void readWebSocketData(Relay* relay)
 			sin.append(",");
 		}
 		*/
-		relay->log(sin);
+		//relay->log(sin);
 
 
 		//set global msg var to sin
