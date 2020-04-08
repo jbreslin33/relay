@@ -11,6 +11,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
+#include <vector>       // std::cout
+
 #include <iostream>       // std::cout
 #include <thread>         // std::thread, std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
@@ -23,9 +25,11 @@ class Relay
 	
 	Relay();
 	void log(std::string s);
+	std::vector<std::string> split(const std::string str, const std::string delim);
 
 	std::string mWebSocketMessage;
 	std::string mSocketMessage;
+
 
 	int mListenPort;
 	int mId;

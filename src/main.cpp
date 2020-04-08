@@ -12,21 +12,35 @@ void readWebSocketData(Relay* relay)
 
 		//set any data coming in to var sin
     		std::cin >> sin;
+
+		std::string delimiter = ",";
+
+		std::vector<std::string> stringVector = relay->split(sin,delimiter);		
+
+	      	int code = atoi(stringVector.at(1).c_str());
 		
+		if (code == 2)
+		{
+			std::string port = std::to_string(relay->mListenPort); 
+			//sin.append(",");
+			sin.append(port);		
+			sin.append(",");
+		}
+
 
 		//check to see if this is a 2 first connection
+		/*
 	        if (sin.compare(1,1,"2") == 0)
 		{
 			//first connection so append listen port
 			std::string port = std::to_string(relay->mListenPort); 
-			while (port.size() < 5)
-			{
-				port.insert(0,"0");
-			}
-
+			sin.append(",");
 			sin.append(port);		
+			sin.append(",");
 		}
+		*/
 		relay->log(sin);
+
 
 		//set global msg var to sin
     		relay->mWebSocketMessage = sin;
